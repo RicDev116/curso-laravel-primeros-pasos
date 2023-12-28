@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\StoreRequest;
 use App\Models\Category;
+use Illuminate\Support\Facades\Validator;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class PostController extends Controller
@@ -44,11 +45,17 @@ class PostController extends Controller
         // var_dump($request);
         // dd($request);
         // dd($request->all());
+        // echo request("title");
+        // echo $request->input('slug');
+
+        //DEMO
+        // $validated = $request->validate(StoreRequest::myRules());
+        // dd($validated);
+
+        // $validated = Validator::make($request->all(),StoreRequest::myRules());
         $data = array_merge($request->all(),['image' => '']);
         Post::create($data);
         
-        // echo request("title");
-        // echo $request->input('slug');
     }
 
     /**
