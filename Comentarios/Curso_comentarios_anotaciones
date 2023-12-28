@@ -1,0 +1,12 @@
+Seccion 4, vistas y layout: 
+compact sirve cuando tienes una variable y en ves de pasar el mapa como argumento: 
+$data....
+['data' => $data] sería compact('data') con argumentos separados por , 
+
+
+SECCION 6:
+
+comando para crear controlador y  modelos: 
+php artisan make:controller Dashboard/PostController -r -m Post
+comando crear request 
+php artisan make:request StorePostRequest

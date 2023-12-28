@@ -1,10 +1,12 @@
 /* Estilos generales 
 
  VISITA https://github.com/laravel-mix/laravel-mix para saber como compilar css y javascript para usarlos despes dentro de la app
- npx mix
+ PASOS: 
+ 1-. modifica este archivo que copiara de resource a la carpeta public 
+ 2-. comando npx mix
 */
 
-body {
+/* body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -76,7 +78,7 @@ body {
     color: #fff;
     padding: 20px;
     text-align: center;
-  }
+  } */
 
   /* h1 {
     color: red;
@@ -84,8 +86,8 @@ body {
 
 
   /* Aplica estilos al elemento <ul> que contiene los elementos <li> */
-.menu {
-    list-style: none; /* Quita los estilos de lista predeterminados */
+  .menu {
+    /* list-style: none; Quita los estilos de lista predeterminados */
     padding: 0; /* Quita el relleno predeterminado */
     text-align: right; /* Alinea el texto a la derecha */
   }
@@ -93,17 +95,20 @@ body {
   /* Aplica estilos a los elementos <li> dentro del <ul> */
   .menu li {
     display: inline-block; /* Hace que los elementos <li> se muestren en línea */
-    margin-right: 10px; /* Agrega un margen a la derecha para separar los elementos <li> */
+    margin-right: 10px; 
+    color: gold;/* Agrega un margen a la derecha para separar los elementos <li> */
   }
   
   /* Aplica estilos a los enlaces <a> dentro de los elementos <li> */
   .menu li a {
     text-decoration: none; /* Quita la decoración de subrayado del enlace */
-    color: #000; /* Cambia el color del texto del enlace */
+    color: gold; /* Cambia el color del texto del enlace */
   }
 
   .title {
-    text-align: center; /* Aplica centrado horizontal */
+    text-align: left; /* Aplica centrado horizontal */
+    color: gold;
+    text-decoration-color: aqua;
   }
 
 
@@ -118,6 +123,7 @@ body {
   }
 
   p,li{
+    color: goldenrod;
     font-size: 16px;
     line-height: 2;
     letter-spacing: 1px;
@@ -134,7 +140,7 @@ body {
   /* Los elementos en la página con la clase especificada (una clase puede aparecer varias veces en una página). */
 
   .mi-clase{
-    color: azure;
+    color: goldenrod;
   }
 
   /* Los elementos en una página con el atributo especificado. */
@@ -144,13 +150,15 @@ body {
   }
 
   /* Los elementos especificados, pero solo cuando esté en el estado especificado, por ejemplo cuando el puntero esté sobre él. */
-
+  a{
+    color: red;
+  }
   a:hover{
-    color: black;
+    color: green;
   }
 
   a:after{
-    color: black;
+    color: blue;
     height: 20;
   }
 
@@ -164,11 +172,11 @@ body {
     src: url("../fonts/Oswald-VariableFont_wght.ttf");
    }
 
-   html{
+   /* html{
     color: white;
     font-size: 10xp;
     font-family: "Open Sans", sans-serif;
-   }
+   } */
   
   
   

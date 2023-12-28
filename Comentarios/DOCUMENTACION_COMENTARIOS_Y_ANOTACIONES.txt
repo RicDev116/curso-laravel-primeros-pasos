@@ -1,0 +1,234 @@
+
+
+/**
+ * Commands to use migrations: php artisan make:migration posts.
+ * php artisan make:migration create_posts_table muletilla es ->crate + nombre tabla + table
+ * php artisan migrate para migrar tabla  a la base de datos
+ * php artisan migrate::rollback -> deshace la  ultima migracion
+ * php artisan migrate:rollback --step=2 -> cuantas migraciones quieres eliminar 
+ * php artisan make:migration add_description_to_posts_table -> para agregar columnas a una tabla
+ * php artisan refresh -< hace un rollback y ejecuta de nuevo la smigraciones
+ */
+
+
+
+ EMPEZANDO CON ARTISAN 
+ php artisan te da todos los commandos disponibles
+ php artisan route:list lista rutas
+ php artisan make:controller -r NameController
+
+
+
+ Siempre usar rutas con nombre ! 
+
+ cap 22 base de datos: 
+ -archivos para configurar database : .env y database
+ - php artisan about para saber la config <rapida></rapida>
+ - se puede encriptar el archivo env con environment encryption   php artisan env:encrypt and give my own encryption key php artisan env:encrypt --key=3UVsEgGVK36XN82KKeyLFMhvosbZN1aF
+ - para traer el ambiente App::environment();
+ - if my application has multiple enviroment files such as .env and .env.staging : php artisan env:encrypt --env=staging
+ - to decrypt a laravel .env file php artisan env:decrypt or php artisan env:decrypt --key=3UVsEgGVK36XN82KKeyLFMhvosbZN1aF
+ or php artisan env:decrypt --env=staging
+
+
+
+ Accessing Configuration Values :
+ - config('app.timezone', 'Asia/Seoul');
+ To set configuration values at runtime, pass an array to the config function:
+
+config(['app.timezone' => 'America/Chicago']);
+
+-You should typically run the php artisan config:cache command as part of your production deployment process
+- no usar env(), solo en configuration file y mejor usar config() en la app 
+- limpiar cache configuracion php artisan config:clear
+- To enable maintenance mode, execute the down Artisan command:
+
+php artisan down or up to disable
+
+- En production set APP_DEBUG to false
+
+
+
+
+
+
+The App Directory
+
+
+
+-  The Console directory contains all of your Artisan commands, while the Http directory contains your 
+controllers, middleware, and requests.
+
+-  If you would like to customize how your exceptions are logged or rendered, you should modify the Handler 
+class in this directory
+
+- Event listeners receive an event instance and perform logic in response to the event being fired. For example, 
+a UserRegistered event might be handled by a SendWelcomeEmail listener.
+
+- The Mail directory contains all of your classes that represent emails sent by your application. Mail objects allow 
+you to encapsulate all of the logic of building an email in a single, simple class that may be 
+sent using the Mail::send method.
+
+
+
+
+Front end : 
+- some one use php 100% recomended and other use vue or react that does not be recomended to use
+
+Using php 
+
+blade :
+<div>
+    @foreach ($users as $user)
+        Hello, {{ $user->name }} <br />
+    @endforeach
+</div>
+
+
+Laravel Livewire:
+https://laravel.com/docs/10.x/frontend#livewire
+
+Typically, developers using Livewire will also utilize Alpine.js 
+
+
+
+React or vue: 
+-. Inertia to aproach both tech (laravel, react or vue)
+
+
+
+
+
+Deployment later 
+
+
+
+Architecture Concepts
+
+RQUEST  Life Cycle: 
+- go to public/index.php, chack if app is on maintenance mode, then start a kernel that has a middleware 
+- services provider Service providers are responsible for bootstrapping all of the framework's various components, 
+such as the database, queue, validation, and routing components like RouteServiceProvider. the list of all service providers is on app.php
+- learn more abour middleware middleware documentation
+
+
+
+
+
+Service Container
+Service Providers
+Facades
+
+- Used to interfaces and bindings, tell to laravel that a centain class need another classes or args 
+withoud adding this classes any time in all references to the principal class  
+
+
+
+
+
+
+Rutas 
+
+Route::get,post, etcs pero se puede hacer un a ruta para varias urls: 
+
+Route::match(['get', 'post'], '/', function () {
+    // ...
+});
+
+If you are defining a route that redirects to another URI, you may use the Route::redirect method
+Route::redirect('/here', '/there');
+Route::redirect('/here', '/there', 301);
+
+view routes 
+Route::view('/welcome', 'welcome');
+Route::view('/welcome', 'welcome', ['name' => 'Taylor']);
+
+with parameters:
+Route::get('/posts/{post}/comments/{comment}', function (string $postId, string $commentId) {
+    // ...
+});
+
+optional parameters Route::get('/user/{name?}', function (?string $name = null) {
+    return $name;
+});
+
+Regular expression Contraints
+Route::get('/user/{name}', function (string $name) {
+    // ...
+})->where('name', '[A-Za-z]+');
+->whereNumber('id')->whereAlpha('name');
+
+If you would like a route parameter to always be constrained by a given regular expression, you may use the 
+pattern method. 
+You should define these patterns in the boot method of your App\Providers\RouteServiceProvider class:
+
+Named routes 
+Route::get('/user/profile', function () {
+    // ...
+})->name('profile');
+
+Inspecting The Current Route
+if ($request->route()->named('profile')) {
+    // ...
+}
+
+If a group of routes all utilize the same controller, you may use the controller method +
+to define the common controller for all of the routes within the group.
+
+Route::controller(OrderController::class)->group(function () {
+    Route::get('/orders/{id}', 'show');
+    Route::post('/orders', 'store');
+});
+Route groups may also be used to handle subdomain routing. Subdomains may 
+be assigned route parameters just like route URIs, allowing you to capture a portion of the 
+subdomain for usage in your route or controller.
+
+Route::domain('{account}.example.com')->group(function () {
+    Route::get('user/{id}', function (string $account, string $id) {
+        // ...
+    });
+});
+
+Route::prefix('admin')->group(function () {
+    Route::get('/users', function () {
+        // Matches The "/admin/users" URL
+    });
+});
+
+Route Name Prefixes
+Route::name('admin.')->group(function () {
+    Route::get('/users', function () {
+        // Route assigned name "admin.users"...
+    })->name('users');
+});
+
+
+
+Route Model Binding
+
+Implicit Binding: 
+
+use App\Models\User;
+ 
+Route::get('/users/{user}', function (User $user) {
+    return $user->email;
+});
+
+Since the $user variable is type-hinted as the 
+App\Models\User Eloquent model and the variable name matches the {user} URI segment,
+ Laravel will automatically inject the model instance that has an ID matching the corresponding value 
+ from the request URI. If a matching model instance is not found in the database, a 404 HTTP response will 
+ automatically be generated
+
+
+ Customizing The Key
+
+Sometimes you may wish to resolve Eloquent models using a column other than id. To do so,
+ you may specify the column in the route parameter definition
+
+ use App\Models\Post;
+ 
+Route::get('/posts/{post:slug}', function (Post $post) {
+    return $post;
+});
+
