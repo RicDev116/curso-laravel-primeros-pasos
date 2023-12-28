@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Post\PutRequest;
 use App\Http\Requests\Post\StoreRequest;
 use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
@@ -19,7 +20,8 @@ class PostController extends Controller
     public function index()
     {
         //
-        echo('Hola');
+        $posts = Post::paginate(2);
+        return view('dashboard.post.index',['posts' => $posts]);
     }
 
     /**
@@ -58,7 +60,7 @@ class PostController extends Controller
 
         //UNA MANERA DE HACER EL SLUG RAPIDAMENTE: 
         // $data['slug'] = Str::slug($data['title']);
-        
+        $request->prepareForValidation();
         Post::create($request->validated());
     }
 
@@ -75,15 +77,17 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $categories = Category::pluck('id','title');
+        return view('dashboard.post.edit',compact('categories','post'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(PutRequest $request, Post $post)
     {
         //
+        $post->update($request->validated());
     }
 
     /**

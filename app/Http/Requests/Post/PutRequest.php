@@ -5,13 +5,13 @@ namespace App\Http\Requests\Post;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
-class StoreRequest extends FormRequest
+class PutRequest extends FormRequest
 {
 
     public static function myRules() : array {
         return [
             'title' => 'required|min:5|max:500',
-            'slug' => 'required|min:5|max:500|unique:posts',
+            // 'slug' => 'required|min:5|max:500|unique:posts',
             'content' => 'required|min:10',
             'category_id' => 'required|integer',
             'description' => 'required|min:10', 
