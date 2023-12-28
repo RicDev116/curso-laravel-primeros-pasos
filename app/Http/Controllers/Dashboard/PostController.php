@@ -55,7 +55,6 @@ class PostController extends Controller
         // $validated = Validator::make($request->all(),StoreRequest::myRules());
         $data = array_merge($request->all(),['image' => '']);
         Post::create($data);
-        
     }
 
     /**
