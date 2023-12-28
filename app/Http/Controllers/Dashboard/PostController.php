@@ -9,6 +9,7 @@ use App\Http\Requests\Post\StoreRequest;
 use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -53,8 +54,12 @@ class PostController extends Controller
         // dd($validated);
 
         // $validated = Validator::make($request->all(),StoreRequest::myRules());
-        $data = array_merge($request->all(),['image' => '']);
-        Post::create($data);
+        // $data = array_merge($request->all(),['image' => '']);
+
+        //UNA MANERA DE HACER EL SLUG RAPIDAMENTE: 
+        // $data['slug'] = Str::slug($data['title']);
+        
+        Post::create($request->validated());
     }
 
     /**

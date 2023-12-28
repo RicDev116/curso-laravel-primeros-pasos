@@ -17,11 +17,11 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
 
-        <label for="">Slug</label>
+        {{-- <label for="">Slug</label>
         <input type="text" name="slug" id="">
         @error('slug')
             <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
+        @enderror --}}
 
         <label for="">Categoría</label>
         <select name="category_id" id="">

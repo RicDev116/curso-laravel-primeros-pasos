@@ -3,9 +3,36 @@
 namespace App\Http\Requests\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class StoreRequest extends FormRequest
 {
+
+    public static function myRules() : array {
+        return [
+            'title' => 'required|min:5|max:500',
+            'slug' => 'required|min:5|max:500',
+            'content' => 'required|min:10',
+            'category_id' => 'required|integer',
+            'description' => 'required|min:10', 
+            'posted' => 'required',
+        ];
+    }
+
+    public function prepareForValidation()
+    {
+        $this->merge([
+            // 'slug' => Str::slug($this->title)
+
+            //OTRAS FORMAS
+            // 'slug' => Str::of($this->title)->slug()->append('-adicional'),
+            'slug' => str($this->title)->slug()
+        ]);
+        
+    }
+
+
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -14,16 +41,6 @@ class StoreRequest extends FormRequest
         return true;
     }
 
-    public static function myRules() : array {
-        return [
-            'title' => 'required|min:5|max:500',
-            'slug' => 'required|min:5|max:500',
-            'content' => 'required|min:10',
-            'category_id' => 'required|integer',
-            'description' => 'required|min:10',
-            'posted' => 'required',
-        ];
-    }
 
     /**
      * Get the validation rules that apply to the request.
