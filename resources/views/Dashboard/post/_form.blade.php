@@ -4,6 +4,15 @@
     <div class="alert alert-danger" role="alert">
         Please fix the following errors
     </div>
+
+    @error('slug')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+
+    @if ($errors->has("slug"))
+    <div class="invalid-feedback">Cambia el titulo</div>
+    @endif
+
 @endif
 
 

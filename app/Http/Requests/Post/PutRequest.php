@@ -8,17 +8,6 @@ use Illuminate\Support\Str;
 class PutRequest extends FormRequest
 {
 
-    public static function myRules() : array {
-        return [
-            'title' => 'required|min:5|max:500',
-            // 'slug' => 'required|min:5|max:500|unique:posts',
-            'content' => 'required|min:10',
-            'category_id' => 'required|integer',
-            'description' => 'required|min:10', 
-            'posted' => 'required',
-        ];
-    }
-
     public function prepareForValidation()
     {
         $this->merge([
@@ -49,6 +38,14 @@ class PutRequest extends FormRequest
      */
     public function rules(): array
     {
-        return $this->myRules();
+        // dd($this->route("post")->id);
+        return [
+            'title' => 'required|min:5|max:500',
+            'slug' => 'required|min:5|max:500|unique:posts,slug,'.$this->route("post")->id,
+            'content' => 'required|min:10',
+            'category_id' => 'required|integer',
+            'description' => 'required|min:10', 
+            'posted' => 'required',
+        ];
     }
 }
