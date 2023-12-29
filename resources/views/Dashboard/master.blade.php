@@ -7,6 +7,9 @@
     <title>Dashboard</title>
 </head>
 <body>
+    @if (session('status'))
+        {{session('status')}}
+    @endif
     @yield('message')
     @yield('extra')
     @yield('content')
