@@ -20,6 +20,10 @@ class PostController extends Controller
     public function index()
     {
         //
+        // return route("post.create");
+        // return redirect("/post/create");
+        // return redirect()->route("post.create");
+        // return to_route("post.create");
         $posts = Post::paginate(2);
         return view('dashboard.post.index',['posts' => $posts]);
     }
@@ -33,9 +37,10 @@ class PostController extends Controller
         // Category::get()->where()
         // $categories = Category::get();
         $categories = Category::pluck('id','title');
+        $post = new Post();
         // dd($categories[0]->title);
         // dd($categories);
-        return view('dashboard.post.create',compact('categories'));
+        return view('dashboard.post.create',compact('categories','post'));
     }
 
     /**
@@ -60,8 +65,9 @@ class PostController extends Controller
 
         //UNA MANERA DE HACER EL SLUG RAPIDAMENTE: 
         // $data['slug'] = Str::slug($data['title']);
-        $request->prepareForValidation();
+        // $request->prepareForValidation();
         Post::create($request->validated());
+        return to_route("post.index");
     }
 
     /**
@@ -88,6 +94,7 @@ class PostController extends Controller
     {
         //
         $post->update($request->validated());
+        return to_route("post.index");
     }
 
     /**
@@ -96,5 +103,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+        $post->delete();
+        return to_route("post.index");
     }
 }
