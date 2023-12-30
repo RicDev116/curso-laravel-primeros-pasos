@@ -62,5 +62,10 @@
     <div class="invalid-feedback">{{ $message }}</div>
 @enderror
 
+@if (isset($task) && $task == 'edit')
+    <label for="">Imagen</label>
+    <input type="file" name="image">
+@endif
+
 
 <button type="submit">Enviar</button>

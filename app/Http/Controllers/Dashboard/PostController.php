@@ -8,18 +8,22 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\PutRequest;
 use App\Http\Requests\Post\StoreRequest;
 use App\Models\Category;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        //
+        // dd(Category::find(1)->posts);
+        // dd(Post::find(1)->category);
         // return route("post.create");
         // return redirect("/post/create");
         // return redirect()->route("post.create");
@@ -31,7 +35,7 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         //
         // Category::get()->where()
@@ -46,7 +50,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request): RedirectResponse
     {
         // echo"store";
         //
@@ -73,15 +77,17 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(Post $post): View
     {
         //
+
+        return view('dashboard.post.show',compact('post'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit(Post $post): View
     {
         $categories = Category::pluck('id','title');
         return view('dashboard.post.edit',compact('categories','post'));
@@ -90,10 +96,21 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PutRequest $request, Post $post)
+    public function update(PutRequest $request, Post $post): RedirectResponse
     {
         //
-        $post->update($request->validated());
+        // dd($request->validated());
+        $data = $request->validated();
+        if(isset($data['image'])){
+
+            $ext = $data["image"]->extension();
+
+            $data["image"] =  $filename = time().".".$ext;
+            // dd(public_path("image", $filename));
+            
+            $request->image->move(public_path("image"), $filename);
+        }
+        $post->update($data);
         // $request->session()->flash('status','Registro actualizado');
         return to_route('post.index')->with('status','Registro actualizado');
     }
@@ -101,7 +118,7 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post): RedirectResponse
     {
         //
         $post->delete();
