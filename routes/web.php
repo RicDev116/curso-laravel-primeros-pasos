@@ -28,11 +28,60 @@ use Illuminate\Support\Facades\Route;
         // Route::get('/',[Test::class,'test']);  
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome'); 
 });
 
-Route::resource('/post',PostController::class);
-Route::resource('/category',CategoryController::class);
+
+// RUTA CON ID FORZOSO
+// Route::get('/test/{id}', function($id){
+//     echo $id;
+// });
+
+// RUTA CON ID VARIABLE
+// Route::get('/test/{id?}', function($id = 10){
+//     echo $id;
+// });
+
+// RUTA CON MAS ARGUMENTOS
+// Route::get('/test/{id?}/{name?}', function($id = 10, $name = ''){
+//     echo $id;
+//     echo $name;
+// });
+
+// Route::get('/category/{id}',[ CategoryController::class, 'new']);
+
+
+//RUTAS AGRUPADAS: solo se usan cuando no es un controlador resource o no esté ordenado
+// Route::controller(PostController::class)->group(function(){
+//     Route::get('post','index') ->name('post.index');
+//     Route::get('post/{post}','show')->name('post.show');
+//     Route::get('post/create','create')->name('post.create');
+// });
+
+
+//MIDLEWARE
+//TODAS LAS RUTAS DEFINIDAS DENTRP DEL MIDDLEWARE SON VALIDADAS PRIMERO POR EL MISMO
+// Route::middleware([App\Http\Middleware\TestMiddleware::class])->group(function(){
+//     Route::get('/test/{id?}/{name?}', function($id = 10, $name = ''){
+//         echo $id;
+//         echo $name;
+//     });
+// });
+
+
+//group
+Route::group(['prefix' => 'dashboard'], function(){
+    // ONLY OR EXCEPT
+    // Route::resource('/post',PostController::class)->only('create');
+
+    // Route::resource('/category',CategoryController::class);
+
+    Route::resources([
+        'post' => PostController::class,
+        'category' => CategoryController::class,
+    ]);
+
+});
 
 // Route::get('post', [PostController::class,'index']);
 // Route::get('post/{post}', [PostController::class,'show']);
@@ -51,3 +100,5 @@ Route::resource('/category',CategoryController::class);
 // });
 
 
+
+//RUTAS DE RIPO RECURSO:

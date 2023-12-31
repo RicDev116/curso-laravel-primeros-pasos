@@ -72,4 +72,9 @@ class CategoryController extends Controller
         $category->delete();
         return to_route('category.index')->with('status','Registro eliminado');
     }
+
+
+    // function new($id){
+        
+    // }
 }

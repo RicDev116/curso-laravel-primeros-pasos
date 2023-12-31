@@ -11,3 +11,7 @@ php artisan make:controller Dashboard/PostController -r -m Post
 comando crear request 
 php artisan make:request StorePostRequest
 php artisan r:l
+
+
+seccion 8: Rutas- laravel 10
+php artisan make:middleware TestMiddleware
