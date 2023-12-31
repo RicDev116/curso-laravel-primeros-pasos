@@ -10,3 +10,4 @@ comando para crear controlador y  modelos:
 php artisan make:controller Dashboard/PostController -r -m Post
 comando crear request 
 php artisan make:request StorePostRequest
+php artisan r:l

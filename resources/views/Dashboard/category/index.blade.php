@@ -1,7 +1,8 @@
 @extends('dashboard.master')
 
 @section('content')
-    <a href='{{route('post.create')}}'></a>
+    <a href='{{route('category.create')}}'></a>
+
     <table>
         <thead>
             <tr>
@@ -9,33 +10,24 @@
                     Titulo
                 </th>
                 <th>
-                    Categoria
-                </th>
-                <th>
-                    Posted
-                </th>
-                <th>
-                    Acciones
+                    Slug
                 </th>
             </tr>
         </thead>
 
         <tbody>
-            @foreach ($posts as $p)
+            @foreach ($categories as $c)
                 <tr>
                     <td>
-                        {{$p->title}}
+                        {{$c->title}}
                     </td>
                     <td>
-                        {{$p->category->title}}
+                        {{$c->slug}}
                     </td>
                     <td>
-                        {{$p->posted}}
-                    </td>
-                    <td>
-                        <a href='{{route('post.edit',$p)}}''>Editar</a>
-                        <a href='{{route('post.show',$p)}}''>Ver</a>
-                        <form action="{{route('post.destroy',$p)}}" method="post">
+                        <a href='{{route('category.edit',$c)}}'>Editar</a>
+                        <a href='{{route('category.show',$c)}}'>Ver</a>
+                        <form action="{{route('category.destroy',$c)}}" method="post">
                             @method("DELETE")
                             @csrf
                             <button type="submit">Eliminar</button>
@@ -47,5 +39,5 @@
         </tbody>
     </table>
 
-    {{$posts->links()}}
+    {{$categories->links()}}
 @endsection
