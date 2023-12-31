@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\PostController;
-use App\Models\Category;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +16,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+//group
+Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::resources([
+        'post' => PostController::class,
+        'category' => CategoryController::class,
+    ]);
+
+});
+
+
+
+require __DIR__.'/auth.php';
+
 // {{-- Referencia a ruta con nombre --}}
 // Route::get('/contacto', function () {
     //     return "Contactame";
@@ -25,11 +52,27 @@ use Illuminate\Support\Facades\Route;
         //     return view('custom',["msg" => $msg]);
         // });  
         
-        // Route::get('/',[Test::class,'test']);  
+        // Route::get('/',[Test::class,'test']); 
 
-Route::get('/', function () {
-    return view('welcome'); 
-});
+// Route::get('post', [PostController::class,'index']);
+// Route::get('post/{post}', [PostController::class,'show']);
+// Route::get('post/create', [PostController::class,'create']);
+// Route::get('post/{post}/edit', [PostController::class,'edit']);
+
+// Route::post('post', [PostController::class,'store']);
+// Route::put('post/{post}', [PostController::class,'update']);
+
+// Route::delete('post/{post}', [PostController::class,'delete']);+
+
+
+// Route::controller(TestController::class)->group(function (){
+//     // Route::get('/tests/{id}','show');
+//     Route::post('/tests','store');
+// });
+
+
+
+//RUTAS DE RIPO RECURSO:
 
 
 // RUTA CON ID FORZOSO
@@ -58,47 +101,7 @@ Route::get('/', function () {
 //     Route::get('post/create','create')->name('post.create');
 // });
 
-
-//MIDLEWARE
-//TODAS LAS RUTAS DEFINIDAS DENTRP DEL MIDDLEWARE SON VALIDADAS PRIMERO POR EL MISMO
-// Route::middleware([App\Http\Middleware\TestMiddleware::class])->group(function(){
-//     Route::get('/test/{id?}/{name?}', function($id = 10, $name = ''){
-//         echo $id;
-//         echo $name;
-//     });
-// });
-
-
-//group
-Route::group(['prefix' => 'dashboard'], function(){
-    // ONLY OR EXCEPT
+// ONLY OR EXCEPT
     // Route::resource('/post',PostController::class)->only('create');
 
     // Route::resource('/category',CategoryController::class);
-
-    Route::resources([
-        'post' => PostController::class,
-        'category' => CategoryController::class,
-    ]);
-
-});
-
-// Route::get('post', [PostController::class,'index']);
-// Route::get('post/{post}', [PostController::class,'show']);
-// Route::get('post/create', [PostController::class,'create']);
-// Route::get('post/{post}/edit', [PostController::class,'edit']);
-
-// Route::post('post', [PostController::class,'store']);
-// Route::put('post/{post}', [PostController::class,'update']);
-
-// Route::delete('post/{post}', [PostController::class,'delete']);+
-
-
-// Route::controller(TestController::class)->group(function (){
-//     // Route::get('/tests/{id}','show');
-//     Route::post('/tests','store');
-// });
-
-
-
-//RUTAS DE RIPO RECURSO:

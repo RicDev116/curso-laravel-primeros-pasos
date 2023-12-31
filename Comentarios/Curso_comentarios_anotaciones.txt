@@ -15,3 +15,21 @@ php artisan r:l
 
 seccion 8: Rutas- laravel 10
 php artisan make:middleware TestMiddleware
+poner esto en el postcss.config.js
+module.exports = {
+    plugins: {
+        tailwindcss: {},
+        autoprefixer: {},
+    },
+};
+
+
+vite es una herramiena de compilación 
+
+"dev": "vite",
+        "build": "vite build"
+comando para produccion 
+
+npm run dev para que jale
+
+la version de node debe estar soportada
