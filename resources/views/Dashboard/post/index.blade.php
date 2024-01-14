@@ -2,7 +2,7 @@
 
 @section('content')
     <a href='{{route('post.create')}}'></a>
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>

@@ -17,7 +17,7 @@
 
 
 <label for="">Titulo</label>
-<input type="text" name="title" id="" value="{{old("title",$post->title)}}">
+<input type="text" class="form-control" name="title" id="" value="{{old("title",$post->title)}}">
 
 @error('title')
     <div class="invalid-feedback">{{ $message }}</div>
