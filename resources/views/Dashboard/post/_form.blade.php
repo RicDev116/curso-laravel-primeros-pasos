@@ -68,4 +68,4 @@
 @endif
 
 
-<button type="submit">Enviar</button>
+<button type="submit" class="btn btn-success mt-3">Enviar</button>

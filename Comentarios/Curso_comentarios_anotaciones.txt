@@ -1,14 +1,14 @@
-Seccion 4, vistas y layout: 
-compact sirve cuando tienes una variable y en ves de pasar el mapa como argumento: 
+Seccion 4, vistas y layout:
+compact sirve cuando tienes una variable y en ves de pasar el mapa como argumento:
 $data....
-['data' => $data] sería compact('data') con argumentos separados por , 
+['data' => $data] sería compact('data') con argumentos separados por ,
 
 
 SECCION 6:
 
-comando para crear controlador y  modelos: 
+comando para crear controlador y  modelos:
 php artisan make:controller Dashboard/PostController -r -m Post
-comando crear request 
+comando crear request
 php artisan make:request StorePostRequest
 php artisan r:l
 
@@ -24,12 +24,14 @@ module.exports = {
 };
 
 
-vite es una herramiena de compilación 
+vite es una herramiena de compilación
 
 "dev": "vite",
         "build": "vite build"
-comando para produccion 
+comando para produccion
 
 npm run dev para que jale
 
 la version de node debe estar soportada
+
+

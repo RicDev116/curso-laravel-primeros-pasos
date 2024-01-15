@@ -27,8 +27,14 @@
     @if (session('status'))
         {{session('status')}}
     @endif
-    @yield('message')
-    @yield('extra')
-    @yield('content')
+
+    <div class="container">
+        @yield('message')
+        @yield('extra')
+        <div class="card card-white mt-4">
+            @yield('content')
+        </div>
+    </div>
+
 </body>
 </html>
