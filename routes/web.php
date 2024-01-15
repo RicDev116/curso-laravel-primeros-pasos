@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 
 //group
-Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth','admin']], function(){
 
     Route::get('/', function () {
         return view('dashboard');
@@ -47,13 +47,13 @@ require __DIR__.'/auth.php';
 // Route::get('/contacto', function () {
     //     return "Contactame";
     // })->name('contacto');
-    
+
     // Route::get('/custom',function (){
         //     $msg = "Mensaje desde el servidor";
         //     return view('custom',["msg" => $msg]);
-        // });  
-        
-        // Route::get('/',[Test::class,'test']); 
+        // });
+
+        // Route::get('/',[Test::class,'test']);
 
 // Route::get('post', [PostController::class,'index']);
 // Route::get('post/{post}', [PostController::class,'show']);
